@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{BookController, AuthorController};
+use App\Http\Controllers\{BookController, AuthorController, CategoryController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -10,3 +10,4 @@ Route::get('/', function () {
 
 Route::resource('books', BookController::class);
 Route::resource('authors', AuthorController::class);
+Route::resource('categories', CategoryController::class);

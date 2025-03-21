@@ -15,7 +15,7 @@
                 <form action="{{ route('books.store') }}" method="POST">
                     @csrf
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="title" value="{{ old('title') }}" name="title"
+                        <input class="form-control" required id="title" value="{{ old('title') }}" name="title"
                             type="text">
                         <label for="name">Nome</label>
                     </div>
