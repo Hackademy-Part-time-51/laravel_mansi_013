@@ -6,6 +6,7 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Category;
 
 class BookController extends Controller
 {
@@ -23,7 +24,8 @@ class BookController extends Controller
     public function create()
     {
         $authors = Author::all();
-        return view('books.create', compact('authors'));
+        $categories = Category::all();
+        return view('books.create', compact('authors', 'categories'));
     }
 
     /**
@@ -31,14 +33,14 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-
-        //Provare id rotto
-        Book::create([
+        $book = Book::create([
             'title' => $request->title,
             'pages' => $request->pages,
             'years' => $request->years,
             'author_id' => $request->author_id,
         ]);
+
+        $book->categories()->attach($request->categories);
 
         return to_route('books.index');
     }
@@ -57,7 +59,8 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         $authors = Author::all();
-        return view('books.edit', compact('book', 'authors'));
+        $categories = Category::all();
+        return view('books.edit', compact('book', 'authors', 'categories'));
     }
 
     /**
@@ -72,6 +75,9 @@ class BookController extends Controller
             'author_id' => $request->author_id,
         ]);
 
+
+        $book->categories()->detach();
+        $book->categories()->attach($request->categories);
         return to_route('books.index');
     }
 
@@ -80,6 +86,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
+        $book->categories()->detach();
         $book->delete();
         return to_route('books.index');
     }

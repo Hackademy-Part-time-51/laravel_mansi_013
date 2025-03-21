@@ -16,7 +16,15 @@
                 <p>Numero di Pagine: {{ $book->pages ?? 'Senza Pagine' }}</p>
                 <p>Anno di scrittura: {{ $book->years }}</p>
                 <p>Autore: {{ $book->author->name }} {{ $book->author->surname }}</p>
+                <hr>
+                <h3>Lista categorie Associate</h3>
+                <ul>
+                    {{-- categories è un metodo --}}
+                    @foreach ($book->categories as $category)
+                        <li>{{ $category->name }}</li>
+                    @endforeach
 
+                </ul>
             </div>
 
 

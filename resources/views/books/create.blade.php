@@ -29,10 +29,23 @@
                             type="text">
                         <label for="years">Anno</label>
                     </div>
+                    <div class="form-control mb-3">
+                        @foreach ($categories as $category)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="category_id_{{ $category->id }}"
+                                    name="categories[]" value="{{ $category->id }}">
+                                <label class="form-check-label"
+                                    for="category_id_{{ $category->id }}">{{ $category->name }}</label>
+                            </div>
+                        @endforeach
+
+
+                    </div>
                     <div class="form-floating mb-3">
                         <select class="form-control" name="author_id" id="author_id">
                             @foreach ($authors as $author)
-                                <option value="{{ $author->id }}">{{ $author->name }} {{ $author->surname }}</option>
+                                <option value="{{ $author->id }}">{{ $author->name }} {{ $author->surname }}
+                                </option>
                             @endforeach
                         </select>
                         <label for="author_id">Autore</label>
